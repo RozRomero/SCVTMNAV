@@ -89,6 +89,13 @@
                                 <p class="w-full text-center">Autorizar </p>
                             </a>
                         </li>
+                        <li>
+                            <a class="flex flex-row justify-start items-center hover:bg-gray-800 rounded-sm p-2 gap-2 m-2"
+                                href="{{ route('tickets.index') }}">
+                                <img class=" w-8 h-8" src="{{ asset('/img/svg/ticket.svg') }}">
+                                <p class="w-full text-center">Sistema de Tickets</p>
+                            </a>
+                        </li>
 
                     </ul> {{-- End Ul Principal --}}
                 </nav>

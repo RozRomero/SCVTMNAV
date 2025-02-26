@@ -35,7 +35,7 @@
             <form action="{{ route('cargarEnSistema') }}" name="set_info"  id="set_info" method="post" enctype="multipart/form-data" class="grid grid-cols-1 grid-rows-6 items-center justify-center my-auto gap-8">
                 @csrf                                                   
                 <div class="row-span-3 text-center flex flex-col items-center">
-                    <label for="excel_users" class="mb-2">CARGA EXCEL RRHH CSV ,XLSX:</label>
+                    <label for="excel_users" class="mb-2">CARGA EXCEL RRHH SOLO .XLSX:</label>
                     <div class="flex flex-col">
                         <input type="file" name="excel_users" id="excel_users" accept=".csv,.xls,.xlsx" class="cursor-pointer">
                         <label for="excel_users" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Choose File</label>

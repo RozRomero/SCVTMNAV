@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AprobacionController;
 use App\Http\Controllers\VacacionesController;
 use App\Http\Controllers\Admin\RolePermissionsController;
+use App\Http\Controllers\TicketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,5 +73,7 @@ Route::middleware([
             Route::get('admin/permission/{id}', 'permission')->name('create.permission');
             Route::post('admin/permission', 'permissioncreate')->name('createsave.permission');
         });
+//Sistema de Tickets
+        Route::resource('tickets', TicketController::class);
     // });
 });

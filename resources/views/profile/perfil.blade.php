@@ -1,4 +1,6 @@
 <x-app-layout>
+    
+@section('content')
     <h2 class="text-center m-4 text-2xl font-bold">{{ Auth::user()->name }}</h2>
 
     <section class="bg-gray-600 w-fit m-4 mx-auto p-2 rounded text-center">
@@ -33,4 +35,5 @@
         </nav>
         @endif
     </section>
+    @endsection
 </x-app-layout>

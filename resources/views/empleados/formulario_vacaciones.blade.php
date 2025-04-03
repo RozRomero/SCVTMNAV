@@ -1,4 +1,5 @@
 <x-app-layout>
+@section('content')
     <main>
         {{-- MENSAJES DE RESPUESTA --}}
         @if (session('success'))
@@ -18,10 +19,16 @@
         @endif
 
         {{-- CONTENIDO --}}
+        @if (is_null($departamento))
+        <div class="bg-red-600 text-white p-4 rounded-md text-center">
+            <p>Al no tener departamento no es posible registrar una solicitud de vacaciones. Comunícate con tu superior para que se te asigne un departamento en el sistema.</p>
+        </div>
+        @else
         <section>
             <h2 class="text-center m-4 text-2xl font-bold">SOLICITUD DE VACACIONES {{ $departamento }}</h2>
             <h3 class="text-center w-1/3 mx-auto">Es importante notar que se requiere un mínimo de 5 días de anticipación para solicitar vacaciones y estas requieren de aprobación.</h3>
         </section>
+        @endif
         <section class="bg-gray-600 w-fit m-4 mx-auto p-2 rounded text-center">
             <form action="{{ route('enviarSolicitudVacaciones') }}" method="POST">
                 @csrf
@@ -87,4 +94,5 @@
             }
         });
     </script>
+    @endsection
 </x-app-layout>

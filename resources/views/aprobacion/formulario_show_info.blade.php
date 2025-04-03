@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('content')
     <style>
         .select2 {
             display: inline;
@@ -131,4 +132,5 @@
             {{ $solicitudes->withQueryString()->links() }}
         </div>
     </main>
+    @endsection
 </x-app-layout>

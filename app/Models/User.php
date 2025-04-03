@@ -82,18 +82,38 @@ class User extends Authenticatable
 
     public function datosEmpleados() {
         return $this->hasOne(DatosEmpleados::class, "user_id", "id");
-    }
+    }  
+    
 
-    public static function jefesPorDepartamentoDeUsuario() {
-        $idDepartamento = Auth::user()->department_id;
-        // Traer ids de jefes
-        $idJefes = ModelHasRoles::where("role_id", 2)->pluck("model_id")->toArray();
-
-        return Self::whereIn("id", $idJefes)->where("department_id", $idDepartamento);
-    }
-
-    public function departamento()
+    public function departamentos()
     {
-        return $this->HasOne(CatalogoDepartamentos::class,'id','department_id');
+        return $this->belongsToMany(CatalogoDepartamentos::class, 'departamento_empleado', 'user_id', 'departamento_id');
     }
+
+public static function jefesPorDepartamentoDeUsuario()
+{
+    $usuario = Auth::user();
+
+    // Asegurar que el usuario tiene al menos un departamento
+    $departamento = $usuario->departamentos()->first(); 
+
+    if (!$departamento) {
+        return collect(); // Retorna una colección vacía si el usuario no tiene departamento
+    }
+
+    // Obtener IDs de los jefes (usuarios con role_id = 2)
+    $idJefes = ModelHasRoles::where("role_id", 2)->pluck("model_id")->toArray();
+
+    // Filtrar jefes que pertenezcan al mismo departamento
+    return User::whereIn("id", $idJefes)
+               ->whereHas('departamentos', function ($query) use ($departamento) {
+                   $query->where('catalogo_departamentos.id', $departamento->id);
+               })
+               ->get();
+}
+
+
+
+
+
 }

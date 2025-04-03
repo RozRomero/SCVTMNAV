@@ -17,7 +17,7 @@ class VacacionesController extends Controller
     {
         $fechaInicial = Carbon::now()->addWeekdays(5)->format("Y-m-d");
         
-        $departamento = Auth::user()->departamento->nombre_departamento;
+        $departamento = Auth::User()->departamentos()->first()?->nombre_departamento ?? null;
         $jefesDeArea = User::jefesPorDepartamentoDeUsuario()->get();
         return view('empleados.formulario_vacaciones', compact('jefesDeArea', 'fechaInicial','departamento'));
     }

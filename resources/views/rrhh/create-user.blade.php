@@ -1,13 +1,11 @@
 <x-app-layout>
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Upload Users') }}
         </h2>
     </x-slot>
 
-    
-
-    {{-- <div class="py-12"> --}}
         <div class="max-w-7xl mx-auto my-4 sm:px-6 lg:px-8">
 
             @if (session()->has('success'))
@@ -95,35 +93,6 @@
                         </select>
                     </div>
 
-                    {{-- <div>
-                        <label for="role" class="block">Country</label>
-                        <select name="country" class="js-example-basic-single bg-gray-700 border-none rounded p-4 w-full sm:w-80 textoSel" required>
-                            <option value=""></option>
-                            @foreach ($countrys as $country)
-                            @if(empty($user))
-                                <option value="{{$country->id_country}}" {{ old('country') == $role->id ? 'selected' : ''}}>{{$country->country}}</option>
-                                
-                            @else
-                                @if($user->country->country_id==$country->id_country)
-                                    <option value="{{$country->id_country}}" selected>{{$country->country}}</option>
-                                @else
-                                    <option value="{{$country->id_country}}">{{$country->country}}</option>
-                                @endif
-                                
-                            @endif
-                            
-                            @endforeach
-                            
-                        </select>
-                    </div> --}}
-
-                    {{-- <div>
-                        <label for="country" class="block">City</label>
-                        <input type="text" name="city" class="bg-gray-700 border-none rounded p-4 w-full sm:w-80" @if (!empty($user)) value="{{$user->country->city}}"@else value="{{old('city')}}" @endif>
-                        @if ($errors->has('city'))
-                            <p class="bg-red-200 text-red-900 rounded-md w-fit sm:w-80 mx-auto p-2">{{ $errors->first('city') }}</p>
-                        @endif
-                    </div> --}}
 
                     <div>
                         <x-button-submit class="capitalize rounded-lg border-none bg-green-600 hover:bg-green-800 cursor-pointer text-center w-fit p-3">
@@ -137,10 +106,9 @@
                             @endif
                             
                         </x-button-submit>
-                        {{-- <a href="{{route('settings.users')}}" class="capitalize rounded-lg border-none bg-red-600 hover:bg-red-800 cursor-pointer text-center w-fit p-3">BACK</a> --}}
                     </div>
                 </form>
             </div>
         </div>
-    {{-- </div> --}}
+@endsection
 </x-app-layout>

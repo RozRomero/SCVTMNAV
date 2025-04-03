@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('content')
     <x-slot name="header">
 
     </x-slot>
@@ -48,6 +49,7 @@
 
         </form>
     </div>
+    @endsection
 </x-app-layout>
 <script>
     const formPerms = document.querySelector('#form_perms')

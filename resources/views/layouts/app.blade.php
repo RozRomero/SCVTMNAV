@@ -60,9 +60,9 @@
                         </li>
                         <li>
                             <a class="flex flex-row justify-start items-center hover:bg-gray-800 rounded-sm p-2 gap-2 m-2"
-                                href="{{ route('vistaCatalogoUsuarios') }}">
+                                href="{{ route('catalogo_empleados') }}">
                                 <img class=" w-8 h-8" src="{{ asset('/img/svg/conference_call.svg') }}">
-                                <p class="w-full text-center">Usuario</p>
+                                <p class="w-full text-center">Usuarios</p>
                             </a>
                         </li>
 
@@ -89,6 +89,15 @@
                                 <p class="w-full text-center">Autorizar </p>
                             </a>
                         </li>
+                        <ul class="grid grid-cols-1 gap-2 relative">
+                            <li>
+                                <a class="flex flex-row justify-start items-center hover:bg-gray-800 rounded-sm p-2 gap-2 m-2"
+                                    href="{{ route('departamentos.index') }}">
+                                    <img class=" w-8 h-8" src="{{ asset('/img/svg/department.svg') }}">
+                                    <p class="w-full text-center">Departamentos</p>
+                                </a>
+                            </li>
+                        </ul>
                         <li>
                             <a class="flex flex-row justify-start items-center hover:bg-gray-800 rounded-sm p-2 gap-2 m-2"
                                 href="{{ route('tickets.index') }}">
@@ -126,11 +135,11 @@
                     {{-- End LogOut --}}
                 </div>
 
-                <div class="{{-- flex flex-col justify-center items-center h-h_90--}} px-6">
+                <div class="px-6">
                     {{-- Contenido --}}
-                    {{ $slot }}
+                    @yield('content')
                 </div>
-            </div>
+                
 
 
         </div>

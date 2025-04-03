@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('catalogo_departamentos', function (Blueprint $table) {
+        Schema::create('departamento_jefe', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre_departamento')->nullable();
+            $table->foreignId('departamento_id')->constrained('catalogo_departamentos')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-        });        
+        });
     }
 
     /**
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalogo_departamentos');
+        Schema::dropIfExists('departamento_jefe');
     }
 };

@@ -1,5 +1,7 @@
 
 <x-app-layout>
+    
+@section('content')
         @if (session('success') || session('errors'))
         <div class="fixed right-1/4 overflow-auto" style="max-height: 90vh" >
             @if(session('success'))
@@ -73,4 +75,5 @@
             }
         });
     </script>
+@endsection
 </x-app-layout>

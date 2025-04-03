@@ -7,6 +7,7 @@ use App\Http\Controllers\AprobacionController;
 use App\Http\Controllers\VacacionesController;
 use App\Http\Controllers\Admin\RolePermissionsController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\DepartamentoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +35,7 @@ Route::middleware([
     Route::controller(UserController::class)->group(function () {
         /* NO usar MAKE make Make en las rutas */
         Route::get('/dashboard/mi-perfil', 'verPerfil')->name('vistaPerfil');
-        Route::any('/dashboard/Catalogo-Empleados', 'catalogo_usuarios')->name('vistaCatalogoUsuarios');
+        Route::get('/dashboard/Catalogo-Empleados', [UserController::class, 'catalogo_empleados'])->name('catalogo_empleados');
         Route::get('/dashboard/Registrar-Empleado/{id}', 'registro_usuario')->name('registrarUsuario');
         Route::post('/dashboard/Crear-Empleado', 'crear_usuario')->name('crearUsuario');
     });
@@ -75,5 +76,25 @@ Route::middleware([
         });
 //Sistema de Tickets
         Route::resource('tickets', TicketController::class);
-    // });
+        
+//Funcion lista de compras
+            // Ruta personalizada para remover empleado del departamento:
+Route::delete('departamentos/{departamentoId}/empleado/{empleadoId}', 
+[DepartamentoController::class, 'removerEmpleado']
+)
+->where(['departamentoId' => '[0-9]+', 'empleadoId' => '[0-9]+'])
+->name('departamentos.removerEmpleado');
+
+// Luego la ruta para eliminar departamento:
+Route::delete('departamentos/{departamento}', 
+[DepartamentoController::class, 'destroy']
+)
+->where('departamento', '[0-9]+')
+->name('departamentos.destroy');
+
+// Y finalmente, el resto de las rutas de resource:
+Route::resource('departamentos', DepartamentoController::class)->middleware('auth');
+
+
+
 });

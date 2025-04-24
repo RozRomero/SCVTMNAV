@@ -3,11 +3,11 @@
 @section('content')
     <h2 class="text-center m-4 text-2xl font-bold">{{ Auth::user()->name }}</h2>
 
-    <section class="bg-gray-600 w-fit m-4 mx-auto p-2 rounded text-center">
+    <section class="bg-indigo-400 w-fit m-4 mx-auto p-2 rounded text-center">
         <p class="bg-blue-800 p-4">INFO VACACIONES</p>
         <table>
             <thead>
-                <tr class="bg-gray-800">
+                <tr class="bg-indigo-600">
 
                     <th class="p-4 border border-gray-600">FECHA DE INGRESO</th>
                     <th class="p-4 border border-gray-600">ANTIGUEDAD</th>
@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-gray-700">
+                <tr class="bg-blue-800">
                     <td class="p-4 border border-gray-600">{{ $user->datosEmpleados->fecha_ingreso ?? "No Hay Datos" }}</td>
                     <td class="p-4 border border-gray-600">{{ $user->datosEmpleados->antiguedad ?? "No Hay Datos" }}</td>
                     <td class="p-4 border border-gray-600">{{ $user->datosEmpleados->dias_vacaciones ?? "No Hay Datos" }}</td>

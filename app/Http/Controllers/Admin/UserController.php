@@ -124,4 +124,25 @@ class UserController extends Controller
             return back()->with('success', 'El Empleado Fue Actualizado Correctamente');
         }
     }
+    public function departamentos()
+{
+    return $this->belongsToMany(CatalogoDepartamentos::class, 'departamento_empleado', 'user_id', 'departamento_id');
+}
+
+public static function jefesPorDepartamentoDeUsuario()
+{
+    $user = Auth::user();
+
+    // Asegúrate de que el usuario tiene al menos un departamento
+    $departamento = $user->departamentos()->first();
+
+    if (!$departamento) {
+        return collect(); // Devuelve colección vacía si no tiene departamento
+    }
+
+    // Devuelve una query con los jefes del mismo departamento
+    return $departamento->usuarios()->where('rol', 'jefe');
+}
+
+
 }

@@ -16,6 +16,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\CatalogoDepartamentos;
 
 class User extends Authenticatable
 {
@@ -112,6 +113,10 @@ public static function jefesPorDepartamentoDeUsuario()
                ->get();
 }
 
+public function departamento()
+{
+    return $this->belongsTo(CatalogoDepartamentos::class, 'department_id');
+}
 
 
 

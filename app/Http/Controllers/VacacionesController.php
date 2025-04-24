@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Mail\solicitudVacacionesEmpleado;
 use App\Mail\solicitudVacacionesCopiaJefeRH;
 
+
 class VacacionesController extends Controller
 {
     public function vista_solicitud_vacaciones(Request $request)
@@ -18,7 +19,7 @@ class VacacionesController extends Controller
         $fechaInicial = Carbon::now()->addWeekdays(5)->format("Y-m-d");
         
         $departamento = Auth::User()->departamentos()->first()?->nombre_departamento ?? null;
-        $jefesDeArea = User::jefesPorDepartamentoDeUsuario()->get();
+        $jefesDeArea = User::jefesPorDepartamentoDeUsuario();
         return view('empleados.formulario_vacaciones', compact('jefesDeArea', 'fechaInicial','departamento'));
     }
 

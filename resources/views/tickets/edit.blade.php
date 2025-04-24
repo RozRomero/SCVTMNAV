@@ -1,4 +1,5 @@
 <x-app-layout>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
     @section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -7,7 +8,7 @@
     </x-slot>
     <h2 class="text-center text-xl font-bold p-6 uppercase">Editar Ticket</h2>
 
-    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-gray-600 text-white w-fit mx-auto">
+    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-indigo-500 text-white w-fit mx-auto">
         <form action="{{ route('tickets.update', $ticket->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -35,7 +36,14 @@
                     <textarea name="description" id="description" class="bg-gray-700 border-none rounded p-4 w-full"
                         rows="4" required>{{ $ticket->description }}</textarea>
                 </div>
-                <div>
+                <div class="flex justify-between">
+                    <!-- Botón de cancelar -->
+                    <a href="{{ route('tickets.index') }}" 
+                        class="bg-red-500 text-white font-bold py-2 px-4 rounded hover:bg-red-700 transition duration-300 ease-in-out">
+                        Cancelar
+                    </a>
+
+                    <!-- Botón de actualizar -->
                     <button type="submit"
                         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         Actualizar Ticket

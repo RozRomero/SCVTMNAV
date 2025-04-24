@@ -138,5 +138,9 @@ public function removerEmpleado($departamentoId, $empleadoId)
     return redirect()->back()->with('error', 'El empleado no pertenece a este departamento.');
 }
 
+public function users()
+{
+    return $this->belongsToMany(User::class, 'departamento_empleado', 'departamento_id', 'user_id');
+}
 
 }

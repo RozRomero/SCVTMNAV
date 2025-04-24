@@ -1,21 +1,21 @@
 <x-app-layout>
     @section('content')
     <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-2xl text-white-800 leading-tight">
             {{ __('Settings Users') }}
         </h2>
     </x-slot>
     <h2 class="text-center text-3xl font-bold p-6 uppercase">Users</h2>
 
     {{-- Listado de Usuarios --}}
-    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-gray-600 text-white w-fit mx-auto">
+    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-indigo-600 text-white w-fit mx-auto">
         @if (session()->has('success'))
             <span class="bg-blue-200 text-blue-900 rounded-md block text-lg">{{ session()->get('success') }}</span>
         @endif
 
         <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
             <a href="{{ route('registrarUsuario', ['create']) }}"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded text-lg">
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded text-lg">
                 New user
             </a>
 
@@ -35,7 +35,7 @@
                     <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Mayor a Menor</option>
                 </select>
                 <button type="submit"
-                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded text-lg">
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded text-lg">
                     Filtrar
                 </button>
             </form>
@@ -85,14 +85,14 @@
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-lg">
                             Details
                         </a>
-                        <a href="{{-- route('password.user', ['id' => $user->id]) --}}"
+                        {{-- <a href="route('password.user', ['id' => $user->id])"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-lg">
                             Password
-                        </a>
-                        <a href="{{-- route('clone.user', ['id' => $user->id]) --}}"
-                            class="bg-purple-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-lg">
+                        </a> --}}
+                        {{-- <a href="route('clone.user', ['id' => $user->id])"
+                            {{--class="bg-purple-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-lg">
                             Clone This User
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             @endforeach

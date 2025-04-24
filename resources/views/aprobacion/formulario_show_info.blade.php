@@ -35,7 +35,7 @@
         </div>
 
         <table class="border border-reen-800 w-full overflow-x-auto">
-            <thead class="bg-purple-800 rounded-sm">
+            <thead class="bg-blue-800 rounded-sm">
                 <tr>
                     <th class="border border-purple-900">
                         <p class="p-2 text-center font-bold">ID</p>
@@ -71,7 +71,7 @@
                 @endphp
 
                 @if (count($solicitudes) == 0)
-                    <tr class="bg-purple-100 rounded-sm text-black text-sm font-bold">
+                    <tr class="bg-blue-100 rounded-sm text-black text-sm font-bold">
                         <td colspan="8" class="p-4 font-bold">NO HAY SOLICITUDES</td>
                     </tr>
                 @endif
@@ -86,31 +86,31 @@
                         $colorCont++;
                     @endphp
                     <tr class="bg-purple-{{ $color }} rounded-sm text-black text-sm font-bold">
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p>{{ $solicitud->id_solicitud }}</p>
                         </td>
                         {{-- Nombre Solicitante --}}
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p>{{ $solicitud->solicitante->name }}</p>
                         </td>
                         {{-- Dias Solicitados --}}
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p class="font-bold text-blue-800">{{ $solicitud->dias_solicitados }}</p>
                         </td>
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p class="font-bold text-blue-800">{{ ($solicitud->solicitante->datosEmpleados->dias_vacaciones ?? 0)-($solicitud->solicitante->datosEmpleados->dias_utilizados ?? 0) ?? "No Hay Datos"}}</p>
                         </td>
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p>{{ $solicitud->fecha_inicio_vacaciones }} - {{ $solicitud->calcularFechaFinalVacaciones() }}{{-- date("Y-m-d",strtotime($solicitud->fecha_inicio_vacaciones. "+ ".($solicitud->dias_solicitados-1)." days")) --}}</p>
                         </td>
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p>{{ $solicitud->jefeDirecto->name }}</p>
                         </td>
 
-                        <td class="border border-purple-{{ $color + 100 }}">
+                        <td class="border border-blue-{{ $color + 100 }}">
                             <p>{{ $solicitud->nota_de_solicitud }}</p>
                         </td>
-                        <td class="border border-purple-{{ $color + 100 }} p-2">
+                        <td class="border border-blue-{{ $color + 100 }} p-2">
                             <form action="{{ route("enviarRespuesta", $solicitud->id_solicitud) }}" method="POST" class="flex flex-col">
                                 @csrf
                                 <button 

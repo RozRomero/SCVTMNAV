@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto bg-gray-800 text-white p-6 rounded-lg shadow-md">
+<div class="max-w-4xl mx-auto bg-blue-800 text-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4 text-center">Editar Departamento</h2>
 
     @if(session('error'))
@@ -76,10 +76,10 @@
 
 
         <div class="flex justify-end gap-2">
-            <a href="{{ route('departamentos.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">
+            <a href="{{ route('departamentos.index') }}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">
                 Cancelar
             </a>
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
                 Guardar Cambios
             </button>
         </div>

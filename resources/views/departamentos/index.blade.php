@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-6xl mx-auto bg-gray-800 text-white p-6 rounded-lg shadow-md">
+<div class="max-w-6xl mx-auto bg-blue-800 text-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4 text-center">Lista de Departamentos</h2>
 
     <!-- Botón para agregar -->
@@ -32,7 +32,7 @@
                         <td class="border border-gray-600 px-4 py-2 text-center">{{ $departamento->id }}</td>
                         <td class="border border-gray-600 px-4 py-2 text-center">{{ $departamento->nombre_departamento }}</td>
                         <td class="border border-gray-600 px-4 py-2 flex justify-center gap-2">
-                            <a href="{{ route('departamentos.edit', $departamento->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md">
+                            <a href="{{ route('departamentos.edit', $departamento->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">
                                 Editar
                             </a>
                             <form action="{{ route('departamentos.destroy', $departamento->id) }}" method="POST">

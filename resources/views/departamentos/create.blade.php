@@ -9,7 +9,7 @@
     <h2 class="text-center text-3xl font-bold p-6 uppercase">Nuevo Departamento</h2>
 
     {{-- Formulario de Creación --}}
-    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-gray-600 text-white w-fit mx-auto">
+    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-blue-600 text-white w-fit mx-auto">
         @if (session()->has('success'))
             <span class="bg-blue-200 text-blue-900 rounded-md block text-lg p-2">
                 {{ session()->get('success') }}

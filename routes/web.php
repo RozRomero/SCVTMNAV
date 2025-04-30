@@ -74,26 +74,23 @@ Route::middleware([
             Route::get('admin/permission/{id}', 'permission')->name('create.permission');
             Route::post('admin/permission', 'permissioncreate')->name('createsave.permission');
         });
-//Sistema de Tickets
-        Route::resource('tickets', TicketController::class);
-        
-//Funcion lista de compras
-            // Ruta personalizada para remover empleado del departamento:
-Route::delete('departamentos/{departamentoId}/empleado/{empleadoId}', 
-[DepartamentoController::class, 'removerEmpleado']
-)
-->where(['departamentoId' => '[0-9]+', 'empleadoId' => '[0-9]+'])
-->name('departamentos.removerEmpleado');
+// Sistema de Tickets
+Route::resource('tickets', TicketController::class);
 
-// Luego la ruta para eliminar departamento:
+// Rutas para Departamentos (resource sin destroy)
+Route::resource('departamentos', DepartamentoController::class)
+    ->middleware('auth')
+    ->except(['destroy']);
+
+// Ruta personalizada para eliminar departamento
 Route::delete('departamentos/{departamento}', 
-[DepartamentoController::class, 'destroy']
-)
-->where('departamento', '[0-9]+')
-->name('departamentos.destroy');
+    [DepartamentoController::class, 'destroy'])
+    ->name('departamentos.destroy'); // Mantenemos el mismo nombre
 
-// Y finalmente, el resto de las rutas de resource:
-Route::resource('departamentos', DepartamentoController::class)->middleware('auth');
+// Ruta para remover empleado usando PUT
+Route::put('departamentos/{departamento}/empleados/{empleado}', 
+    [DepartamentoController::class, 'removerEmpleado'])
+    ->name('departamentos.removerEmpleado');
 
 
 

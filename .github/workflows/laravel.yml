@@ -1,0 +1,67 @@
+name: Laravel CI/CD
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: laravel
+        ports:
+          - "3306:3306"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+        extensions: mbstring, dom, fileinfo, mysql
+        coverage: none
+
+    - name: Install dependencies
+      run: |
+        composer install --prefer-dist --no-interaction
+        cp .env.example .env
+        php artisan key:generate
+
+    - name: Prepare environment
+      run: |
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=laravel" >> .env
+        echo "DB_USERNAME=root" >> .env
+        echo "DB_PASSWORD=password" >> .env
+
+    - name: Execute tests
+      run: php artisan test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install Heroku CLI
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
+        
+    - name: Login to Heroku
+      run: |
+        heroku login --api-key ${{ secrets.HEROKU_API_KEY }}
+        heroku git:remote -a ${{ secrets.HEROKU_APP_NAME }}
+        
+    - name: Deploy to Heroku
+      run: |
+        git push heroku main

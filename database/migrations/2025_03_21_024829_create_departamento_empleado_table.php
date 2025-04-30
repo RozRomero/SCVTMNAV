@@ -5,10 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('departamento_empleado', function (Blueprint $table) {
             $table->id();
@@ -17,24 +14,18 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // Eliminar la clave foránea existente en users
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['departmento_id']);
-            $table->dropColumn('departmento_id');
-        });
+        // Only drop the column if it exists (for existing installations)
+        if (Schema::hasColumn('users', 'departmento_id')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropForeign(['departmento_id']);
+                $table->dropColumn('departmento_id');
+            });
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        // Restaurar la columna department_id en users
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('departmento_id')->nullable()->after('password')->constrained('catalogo_departamentos');
-        });
-
         Schema::dropIfExists('departamento_empleado');
+        
     }
 };
-

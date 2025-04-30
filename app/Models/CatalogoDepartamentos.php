@@ -14,15 +14,14 @@ class CatalogoDepartamentos extends Model
     protected $fillable = [
         'nombre_departamento',
     ];
+
+    public function empleados()
+    {
+        return $this->belongsToMany(User::class, 'departamento_empleado', 'departamento_id', 'user_id');
+    }
+
     public function jefes()
-{
-    return $this->belongsToMany(User::class, 'departamento_jefe', 'departamento_id', 'user_id');
-}
-
-public function empleados()
-{
-    return $this->belongsToMany(User::class, 'departamento_empleado', 'departamento_id', 'user_id');
-}
-
-
+    {
+        return $this->belongsToMany(User::class, 'departamento_jefe', 'departamento_id', 'user_id');
+    }
 }

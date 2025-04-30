@@ -1,53 +1,59 @@
-<x-app-layout>
-    @section('content')
-    <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ __('Agregar Departamento') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <h2 class="text-center text-3xl font-bold p-6 uppercase">Nuevo Departamento</h2>
+@section('content')
+<div class="max-w-4xl mx-auto bg-gray-800 text-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4 text-center">Crear Nuevo Departamento</h2>
 
-    {{-- Formulario de Creación --}}
-    <div class="p-6 rounded-sm shadow-lg m-2 mb-4 bg-gray-600 text-white w-fit mx-auto">
-        @if (session()->has('success'))
-            <span class="bg-blue-200 text-blue-900 rounded-md block text-lg p-2">
-                {{ session()->get('success') }}
-            </span>
-        @endif
+    @if(session('error'))
+        <div class="bg-red-500 text-white p-3 mb-4 rounded-md">
+            {{ session('error') }}
+        </div>
+    @endif
 
-        <form action="{{ route('departamentos.store') }}" method="POST" class="flex flex-col gap-4">
-            @csrf
-            <div class="mb-4">
-                <label class="block text-lg font-bold">Nombre del Departamento</label>
-                <input type="text" name="nombre_departamento" class="bg-gray-700 border-none rounded p-3 text-lg w-96"
-                    required>
-                @error('nombre_departamento')
-                    <p class="text-red-500 text-sm">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="mb-4">
-                <label class="block text-lg font-bold">Jefe(s) del Departamento</label>
-                <select name="jefes[]" multiple required class="bg-gray-700 border-none rounded p-3 text-lg w-96">
-                    @foreach ($empleados as $empleado)
-                        <option value="{{ $empleado->id }}">{{ $empleado->name }}</option>
-                    @endforeach
-                </select>
-                @error('jefes')
-                    <p class="text-red-500 text-sm">{{ $message }}</p>
-                @enderror
-            </div>            
+    <form action="{{ route('departamentos.store') }}" method="POST">
+        @csrf
 
-            <div class="flex justify-between">
-                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded text-lg">
-                    Guardar
-                </button>
-                <a href="{{ route('departamentos.index') }}"
-                    class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded text-lg">
-                    Cancelar
-                </a>
-            </div>
-        </form>
-    </div>
-    @endsection
-</x-app-layout>
+        <!-- Nombre del Departamento -->
+        <div class="mb-4">
+            <label class="block text-gray-300">Nombre del Departamento:</label>
+            <input type="text" name="nombre_departamento" value="{{ old('nombre_departamento') }}"
+                class="w-full px-4 py-2 bg-gray-700 text-white rounded-md border border-gray-600 focus:outline-none focus:border-blue-400">
+        </div>
+
+        <!-- Asignar jefes -->
+        <div class="mb-4">
+            <label class="block text-gray-300">Asignar Jefe(s):</label>
+            @if($empleadosDisponibles->isEmpty())
+                <p class="text-gray-400 italic">No hay empleados disponibles para asignar como jefes</p>
+            @else
+            <select name="jefes[]" multiple class="select2 bg-gray-700 border-none rounded p-3 text-lg w-full">
+                @foreach ($empleadosDisponibles as $empleado)
+                    <option value="{{ $empleado->id }}">
+                        {{ $empleado->name }} ({{ $empleado->no_empleado }})
+                    </option>
+                @endforeach
+            </select>
+            @endif
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <a href="{{ route('departamentos.index') }}" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md">
+                Cancelar
+            </a>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">
+                Crear Departamento
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Seleccione jefe(s)...",
+            allowClear: true,
+            width: '100%'
+        });
+    });
+</script>
+@endsection

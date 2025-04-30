@@ -29,7 +29,7 @@ class UserController extends Controller
         }
 
         // Obtener los usuarios con sus datos de empleado
-        $users = User::with(['datosEmpleados', 'departamento'])
+        $users = User::with(['datosEmpleados', 'departamentos'])
             ->join('datos_empleados', 'users.id', '=', 'datos_empleados.user_id')
             ->orderBy($sortBy, $order)
             ->select('users.*'); // Seleccionar solo las columnas de users
